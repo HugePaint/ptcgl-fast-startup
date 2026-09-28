@@ -72,10 +72,24 @@ internal static class ManifestLoadPatches
 {
     public static void Apply(Harmony harmony)
     {
-        TryPatch(harmony, "RemoteAssetBundleSource.GetAvailableAssetBundles", FindGetAvailableAssetBundles(), typeof(ParallelBuckets), nameof(ParallelBuckets.Prefix));
-        TryPatch(harmony, "AssetBundleManager.InitializeAvailableBundles", FindInitializeAvailableBundles(), typeof(ParallelSources), nameof(ParallelSources.Prefix));
-        TryPatch(harmony, "AssetBundleRestWorker.CreateWebRequest", FindCreateWebRequest(), typeof(HistoricalManifestCache), nameof(HistoricalManifestCache.Prefix));
+        if (File.Exists(OptimizeOffFlag()))
+        {
+            FileLog.Info("optimize patches off");
+        }
+        else
+        {
+            FileLog.Info("optimize patches on");
+            TryPatch(harmony, "RemoteAssetBundleSource.GetAvailableAssetBundles", FindGetAvailableAssetBundles(), typeof(ParallelBuckets), nameof(ParallelBuckets.Prefix));
+            TryPatch(harmony, "AssetBundleManager.InitializeAvailableBundles", FindInitializeAvailableBundles(), typeof(ParallelSources), nameof(ParallelSources.Prefix));
+            TryPatch(harmony, "AssetBundleRestWorker.CreateWebRequest", FindCreateWebRequest(), typeof(HistoricalManifestCache), nameof(HistoricalManifestCache.Prefix));
+        }
+
         StartupStatusText.Apply(harmony);
+    }
+
+    private static string OptimizeOffFlag()
+    {
+        return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FastStartup", "optimize.off");
     }
 
     private static void TryPatch(Harmony harmony, string label, MethodInfo method, Type patchType, string prefixName)

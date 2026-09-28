@@ -1,0 +1,150 @@
+17:35:02.096 BOOT doorstop start
+17:35:02.731 BOOT loading C:\Users\yangyuhan\The Pokémon Company International\Pokémon Trading Card Game Live\FastStartup\PtcglFastStartup.dll via assembly-load
+17:35:03.041 INFO optimize patches on
+17:35:03.368 INFO Patched RemoteAssetBundleSource.GetAvailableAssetBundles
+17:35:03.487 INFO Patched AssetBundleManager.InitializeAvailableBundles
+17:35:03.558 INFO Patched AssetBundleRestWorker.CreateWebRequest
+17:35:03.582 INFO Patched StartupScreenText.SetTotalSteps
+17:35:03.608 INFO Patched StartupScreenText.UpdateLoadString
+17:35:03.649 INFO Patched ManagerBase.InitializeManager
+17:35:03.692 INFO Patched ManagerBase.finishedInitialized
+17:35:03.736 INFO Patched ManagerBase.hasError
+17:35:03.736 BOOT patches applied
+17:35:09.393 INFO manager start SceneLoadManager
+17:35:09.398 INFO manager start BuildAndBattlePopupManager
+17:35:09.403 INFO manager start TestSetBoardState
+17:35:09.406 INFO manager start LocalizationBootstrapper
+17:35:09.407 INFO manager start GameDriverManager
+17:35:09.408 INFO manager start ResolutionManager
+17:35:09.413 INFO manager start CommandLineOptionsProvider
+17:35:09.429 INFO manager finish SceneLoadManager in 0.04s
+17:35:09.430 INFO manager finish BuildAndBattlePopupManager in 0.03s
+17:35:09.430 INFO manager finish TestSetBoardState in 0.03s
+17:35:09.431 INFO manager finish LocalizationBootstrapper in 0.02s
+17:35:09.432 INFO manager finish GameDriverManager in 0.02s
+17:35:09.432 INFO manager finish ResolutionManager in 0.02s
+17:35:09.433 INFO manager finish CommandLineOptionsProvider in 0.02s
+17:35:09.437 INFO manager start DebugManager
+17:35:09.443 INFO manager finish DebugManager in 0.01s
+17:35:09.445 INFO manager start AnalyticsManager
+17:35:09.486 INFO manager start GameSettingsEndpoint
+17:35:09.492 INFO manager finish AnalyticsManager in 0.05s
+17:35:09.494 INFO manager start PerformanceMonitor
+17:35:09.497 INFO manager finish PerformanceMonitor in 0.00s
+17:35:10.683 INFO manager finish GameSettingsEndpoint in 1.20s
+17:35:10.690 INFO manager start TelemetryManagerWrapper
+17:35:10.699 INFO manager finish TelemetryManagerWrapper in 0.01s
+17:35:10.708 INFO manager start LoginManager
+17:35:14.180 INFO manager finish LoginManager in 3.47s
+17:35:14.182 INFO manager start AccountModeManager
+17:35:14.183 INFO manager start NetworkManager
+17:35:14.244 INFO manager start SupportedDeviceManager
+17:35:14.247 INFO manager finish AccountModeManager in 0.07s
+17:35:14.248 INFO manager finish SupportedDeviceManager in 0.00s
+17:35:33.671 INFO manager finish NetworkManager in 19.49s
+17:35:33.673 INFO manager start PopupManager
+17:35:33.675 INFO manager start PlayerStatsManager
+17:35:33.678 INFO manager start QuestManager
+17:35:33.681 INFO manager start ProfileServiceManager
+17:35:33.682 INFO manager start ConfigManager
+17:35:33.690 INFO manager start ContentOverrideManager
+17:35:33.698 INFO manager finish PopupManager in 0.03s
+17:35:33.715 INFO manager finish PlayerStatsManager in 0.04s
+17:35:33.718 INFO manager finish ProfileServiceManager in 0.04s
+17:35:33.719 INFO manager finish ContentOverrideManager in 0.03s
+17:35:34.001 INFO manager finish ConfigManager in 0.32s
+17:35:34.004 INFO manager start InboxManager
+17:35:34.009 INFO manager start MainMenuMusicProvider
+17:35:34.011 INFO manager start FeatureFlagManagerSingleton
+17:35:34.020 INFO manager start CardFormatManager
+17:35:34.028 INFO manager start CardRarityManifest
+17:35:34.033 INFO manager start ExpansionChallengeManager
+17:35:34.037 INFO manager start LocalizationConfigManager
+17:35:34.046 INFO manager finish InboxManager in 0.04s
+17:35:34.049 INFO manager finish FeatureFlagManagerSingleton in 0.04s
+17:35:34.068 INFO manager start FirebaseManager
+17:35:34.074 INFO manager start LocalizedSpriteFontManager
+17:35:34.076 INFO manager start PermissionsManager
+17:35:34.081 INFO manager finish LocalizedSpriteFontManager in 0.01s
+17:35:34.082 INFO manager finish PermissionsManager in 0.01s
+17:35:34.085 INFO manager finish FirebaseManager in 0.02s
+17:35:34.087 INFO manager start NewsDataManager
+17:35:34.097 INFO manager start ItemSetDatabaseManager
+17:35:34.351 INFO manager finish CardFormatManager in 0.33s
+17:35:34.633 INFO manager finish CardRarityManifest in 0.60s
+17:35:34.662 INFO manager finish MainMenuMusicProvider in 0.65s
+17:35:35.042 INFO manager finish QuestManager in 1.36s
+17:35:35.622 INFO manager finish NewsDataManager in 1.54s
+17:35:35.664 INFO manager finish ExpansionChallengeManager in 1.63s
+17:35:37.318 INFO manager finish ItemSetDatabaseManager in 3.22s
+17:35:37.320 INFO manager start CommerceManager
+17:35:37.322 INFO manager finish CommerceManager in 0.00s
+17:35:37.324 INFO manager start ShopDataManager
+17:35:38.635 INFO manager finish ShopDataManager in 1.31s
+17:35:55.219 INFO manager finish LocalizationConfigManager in 21.18s
+17:35:55.221 INFO manager start PlayerConfigManager
+17:35:55.227 INFO manager start CardDatabaseManager
+17:35:55.233 INFO manager start AssetBundleSetup
+17:35:55.293 INFO Loading 1 asset bundle sources in parallel
+17:35:55.318 INFO manager start RainierManager
+17:35:55.319 INFO manager start TransitionManager
+17:35:55.349 INFO manager finish PlayerConfigManager in 0.13s
+17:35:55.350 INFO manager finish RainierManager in 0.03s
+17:35:55.351 INFO manager finish TransitionManager in 0.03s
+17:35:55.365 INFO manager start OperationSaver
+17:35:55.381 INFO manager finish OperationSaver in 0.02s
+17:35:55.617 INFO Manifest endpoint https://cdn.studio-prod.pokemon.com/rainier/Content/StandaloneWindows64/1.42.0/ locale en buckets 17
+17:35:55.698 INFO Caching historical manifest manifest_en_10101_0000
+17:35:55.702 INFO Caching historical manifest manifest_en_20260604_1700
+17:35:55.703 INFO Caching historical manifest manifest_en_20260612_1700
+17:35:55.705 INFO Caching historical manifest manifest_en_20260617_1700
+17:35:55.707 INFO Caching historical manifest manifest_en_20260618_1700
+17:35:55.708 INFO Caching historical manifest manifest_en_20260626_1700
+17:35:55.710 INFO Caching historical manifest manifest_en_20260702_1700
+17:35:55.711 INFO Caching historical manifest manifest_en_20260716_1700
+17:35:55.713 INFO Caching historical manifest manifest_en_20260806_1700
+17:35:55.714 INFO Caching historical manifest manifest_en_20260807_1700
+17:35:55.716 INFO Caching historical manifest manifest_en_20260820_1700
+17:35:55.717 INFO Caching historical manifest manifest_en_20260827_1700
+17:35:55.719 INFO Caching historical manifest manifest_en_20260828_1700
+17:35:55.720 INFO Caching historical manifest manifest_en_20260903_1700
+17:35:55.722 INFO Caching historical manifest manifest_en_20260910_1700
+17:35:55.723 INFO Caching historical manifest manifest_en_20260915_1700
+17:35:55.725 INFO Caching historical manifest manifest_en_20260916_1700
+17:35:55.726 INFO Started 17/17 manifest downloads for locale en
+17:35:55.902 INFO Finished 17 manifest buckets for locale en in 0.28s (ok 17, fail 0)
+17:35:56.050 INFO manager finish AssetBundleSetup in 0.82s
+17:35:56.065 INFO manager start BattleBoardManager
+17:35:56.069 INFO manager start BnbDataManager
+17:35:56.083 INFO manager start FrontEndPreloadManager
+17:35:56.087 INFO manager start RainierAudio
+17:35:56.089 INFO manager start FXManager
+17:35:56.103 INFO manager start ResourceManager
+17:35:56.114 INFO manager start LocalizationDebugManager
+17:35:56.787 INFO manager finish FXManager in 0.70s
+17:35:56.817 INFO manager finish ResourceManager in 0.71s
+17:35:56.818 INFO manager finish LocalizationDebugManager in 0.70s
+17:35:56.871 INFO manager finish RainierAudio in 0.79s
+17:35:56.910 INFO manager finish BattleBoardManager in 0.85s
+17:35:57.008 INFO manager finish FrontEndPreloadManager in 0.93s
+17:35:58.059 INFO manager finish CardDatabaseManager in 2.83s
+17:35:58.082 INFO manager start PlayerInventoryManager
+17:35:58.236 INFO manager finish BnbDataManager in 2.17s
+17:36:00.076 INFO manager finish PlayerInventoryManager in 1.99s
+17:36:00.086 INFO manager start ResearchMissionsDataManager
+17:36:00.094 INFO manager start DustManager
+17:36:00.104 INFO manager start DeckValidationManager
+17:36:00.113 INFO manager start AvatarManager
+17:36:00.123 INFO manager finish DustManager in 0.03s
+17:36:04.068 INFO manager finish AvatarManager in 3.96s
+17:36:04.088 INFO manager start DialogueManager
+17:36:04.101 INFO manager finish DialogueManager in 0.01s
+17:36:04.126 INFO manager start FTUEManager
+17:36:04.799 INFO manager finish FTUEManager in 0.67s
+17:36:05.091 INFO manager finish ResearchMissionsDataManager in 5.01s
+17:36:05.907 INFO manager finish DeckValidationManager in 5.80s
+17:36:05.924 INFO manager start DeckAnalyticsManager
+17:36:05.927 INFO manager start TrainerTrialsRulesetScheduleManager
+17:36:05.946 INFO manager finish DeckAnalyticsManager in 0.02s
+17:36:06.282 INFO manager finish TrainerTrialsRulesetScheduleManager in 0.35s
+17:36:06.294 INFO load final

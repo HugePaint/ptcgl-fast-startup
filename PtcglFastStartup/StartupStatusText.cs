@@ -83,6 +83,7 @@ internal static class StartupStatusText
             if (final)
             {
                 _stop = true;
+                FileLog.Info("load final");
             }
         }
     }
