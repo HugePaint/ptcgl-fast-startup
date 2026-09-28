@@ -72,7 +72,7 @@ Dependencies are the `ManagerBase` types passed to the `Dependencies` list in th
 | GameSettingsEndpoint | LocalizationBootstrapper, DebugManager | Remote game settings |
 | LoginManager | LocalizationBootstrapper, TelemetryManagerWrapper | Language select, then PTCS login |
 | AccountModeManager | LoginManager | Account mode |
-| NetworkManager | DebugManager, AnalyticsManager, LoginManager | Access token, client SDK, server connection |
+| NetworkManager | DebugManager, AnalyticsManager, LoginManager | Access token, client SDK, server connection. Setup order is in Client setup below |
 | SupportedDeviceManager | LoginManager | Minimum-spec check; sets `hasError` when the device fails |
 | FirebaseManager | ConfigManager, LoginManager, FeatureFlagManagerSingleton, AccountModeManager | Firebase consent and init when the feature is on |
 | ContentOverrideManager | GameSettingsEndpoint, NetworkManager | Per-platform content path, then the force-update message |
@@ -116,6 +116,22 @@ Dependencies are the `ManagerBase` types passed to the `Dependencies` list in th
 | DialogueManager | LocalizationConfigManager, RainierManager, AvatarManager, RainierAudio | Dialogue parts |
 | LocalizationDebugManager | LocalizationBootstrapper, ConfigManager, DebugManager, AssetBundleSetup | Localization debug options |
 | ResearchMissionsDataManager | NetworkManager, AssetBundleSetup, PlayerInventoryManager, FeatureFlagManagerSingleton, LocalizationBootstrapper | Research missions when the feature is on |
+
+## Client setup
+
+`NetworkManager.Initialize` waits on `ClientSetupTask`. The live path is `PlatformRainierClient.Setup` (`<Setup>d__55`). `LocalRainierClient.Setup` is the offline and mock path. A fault sets `hasError`. `StartupScreenText.ShowErrorPopup` formats `app_error_failed_load` with that manager’s error code and opens `SimpleMessage` over the loading line. A failed `NetworkManager` is the popup reported as `ERROR:10011`.
+
+After the websocket connects, setup downloads feature flags, then permissions, then `SetPreferredLocale`. It then waits on `Task.WhenAll` of four `Task.Run` calls: `Commerce.Setup`, `InventoryQueries.Setup`, `SeasonRank.Setup`, `Gift.Setup`. `SeasonRank.Setup` and `Gift.Setup` construct a query and return. `Commerce.Setup` assigns `CommerceService`, then awaits one wallet `GetCurrencyAsync`. `InventoryQueries.Setup` is the long call in that group. The next await is `Task.Run` of `Commerce.GetShopOfferingsAsync`, which awaits `CommerceService.GetPurchaseOfferingsAsync`. After that, setup runs the synchronous `Setup()` calls the later managers use, then `SetClientAnalyticsAsync`.
+
+Leave `finishedInitialized` at the end of `Client.Setup`. `QuestManager` and `PlayerStatsManager` start on that flag, and their services are those synchronous `Setup()` calls.
+
+`NetworkSetup.ApplyTimings` runs in both arms. `ApplyOverlap` runs only while optimize is on, and only after `ApplyTimings`, because it uses the shop `MethodInfo` stored there. Overlap starts `GetShopOfferingsAsync` when `Commerce.Setup` completes (`OnlyOnRanToCompletion`, `TaskScheduler.Default`). The game’s later call joins that `Task`. The prefix is the closed generic `ShopPrefix<TArg,TResult>(Action<TArg> onError, ref Task<TResult> __result)`. `InShopCall` is set around the original invoke, so that call runs the method once. `ResetShop` prefixes both client `Setup` methods, so a restarted setup joins a new task. The early `onError` is an empty delegate. The game’s callback logs warnings. A fault still faults the joined task and `Client.Setup`. Keep this prefix as that generic method: an exception from it faults `Client.Setup` the same way, and the log is `manager fail NetworkManager` with no `GetShopOfferingsAsync started after Commerce.Setup` line.
+
+`loadingText` is held as `object`. A destroyed widget fails the Unity null check in `MissingText`, and `Bind` then takes the new widget. `EnsureTick` starts the refresh coroutine again when the `DontDestroyOnLoad` host is gone. `ShowErrorPopup` covers the loading line; it leaves the detail list in place on the hidden widget.
+
+One warm optimized launch at `7443b32`, same client, already signed in. `NetworkManager` 16.71s, `Client.Setup` 16.35s. Server-time sync landed about 5.4s after `Begin ClientHandler.Setup`. Feature flags, permissions, and locale took about 1s. Inventory took 8.65s. Shop offerings started when commerce setup finished, ran 6.45s, and the original call joined an already completed task. Client analytics took 0.35s. `LocalizationConfigManager` took 5.20s. `AssetBundleSetup` took 0.82s. Makespan from the first `manager start` to the last `manager finish` was 39.3s, and `load final` followed 13ms later. `DeckValidationManager` was the last finish, at 6.18s. This is one launch. The median compare is [agent/compare/2026-09-28-1e8a3a7.md](compare/2026-09-28-1e8a3a7.md).
+
+On that launch the time still inside `NetworkManager` after the shop join is the connect prefix (register, auth, websocket, server time) plus inventory. `SetClientAnalyticsAsync` was 0.35s, and the analytics object is built at that call. An earlier post has to be the same task the game awaits.
 
 ## Mod hooks
 

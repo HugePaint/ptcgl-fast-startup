@@ -16,6 +16,8 @@ Read times from one `FastStartup.log` session (delete the file before each launc
 
 `RequiredNonBlockingInitialize` runs after `finishedInitialized` and is outside `in Xs`. AvatarManager keeps working after its finish line.
 
+With optimize on, shop overlap logs `setup GetShopOfferingsAsync started after Commerce.Setup` and later `setup GetShopOfferingsAsync joined`. `shop offerings ok in 0.00s` on the joined line means the request finished during the parallel group. `Patched Commerce.GetShopOfferingsAsync` without `early` is the timing postfix and stays in both arms. A `manager fail NetworkManager` with no `started after Commerce.Setup` line is a thrown shop prefix; discard that launch. A second `BOOT doorstop start` in the same file is another session; read the makespan inside one session. The single warm launch at `7443b32` is in [agent/startup-managers.md](startup-managers.md) and is not a median from this protocol.
+
 A shorter manager changes the makespan when later work was waiting on that finish. Read the makespan first. Then read `AssetBundleSetup`, which is the manager that holds “Loading assets 15/59”. When the makespan moves and `AssetBundleSetup` does not, read start/finish order in the log before treating the move as an optimization result.
 
 ## Scenario
