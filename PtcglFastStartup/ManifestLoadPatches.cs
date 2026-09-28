@@ -75,6 +75,7 @@ internal static class ManifestLoadPatches
         TryPatch(harmony, "RemoteAssetBundleSource.GetAvailableAssetBundles", FindGetAvailableAssetBundles(), typeof(ParallelBuckets), nameof(ParallelBuckets.Prefix));
         TryPatch(harmony, "AssetBundleManager.InitializeAvailableBundles", FindInitializeAvailableBundles(), typeof(ParallelSources), nameof(ParallelSources.Prefix));
         TryPatch(harmony, "AssetBundleRestWorker.CreateWebRequest", FindCreateWebRequest(), typeof(HistoricalManifestCache), nameof(HistoricalManifestCache.Prefix));
+        StartupStatusText.Apply(harmony);
     }
 
     private static void TryPatch(Harmony harmony, string label, MethodInfo method, Type patchType, string prefixName)
