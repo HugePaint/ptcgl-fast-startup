@@ -24,7 +24,6 @@ internal static class StartupStatusText
     private static string _lastDone = "";
     private static string _applied = "";
     private static bool _prepared;
-    private static bool _ticking;
     private static bool _stop;
     private static bool _applying;
     private static WaitForSecondsRealtime _wait;
@@ -124,6 +123,16 @@ internal static class StartupStatusText
         }
     }
 
+    private static bool MissingText()
+    {
+        if (_text == null)
+        {
+            return true;
+        }
+
+        return _text is UnityEngine.Object unityObject && unityObject == null;
+    }
+
     private static void Bind(object screen)
     {
         if (screen == null)
@@ -131,19 +140,22 @@ internal static class StartupStatusText
             return;
         }
 
-        if (_text == null)
+        if (MissingText())
         {
+            _text = null;
+            _prepared = false;
+            _applied = "";
             var field = AccessTools.Field(screen.GetType(), "loadingText");
             _text = field?.GetValue(screen);
             Prepare();
         }
 
-        if (!_ticking)
+        if (_wait == null)
         {
-            _ticking = true;
             _wait = new WaitForSecondsRealtime(RefreshSeconds);
-            StartupRunner.Host().StartCoroutine(Tick());
         }
+
+        StartupRunner.EnsureTick(Tick());
     }
 
     private static IEnumerator Tick()
@@ -162,7 +174,7 @@ internal static class StartupStatusText
 
     private static void Paint()
     {
-        if (_applying || _text == null || (_text is UnityEngine.Object unityObject && unityObject == null))
+        if (_applying || MissingText())
         {
             return;
         }

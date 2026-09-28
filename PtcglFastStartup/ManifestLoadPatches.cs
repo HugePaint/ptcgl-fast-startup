@@ -24,6 +24,7 @@ internal sealed class StartupHost : MonoBehaviour
 internal static class StartupRunner
 {
     private static StartupHost _host;
+    private static StartupHost _tickHost;
 
     public static StartupHost Host()
     {
@@ -36,6 +37,18 @@ internal static class StartupRunner
         UnityEngine.Object.DontDestroyOnLoad(go);
         _host = go.AddComponent<StartupHost>();
         return _host;
+    }
+
+    public static void EnsureTick(IEnumerator routine)
+    {
+        var host = Host();
+        if (_tickHost == host)
+        {
+            return;
+        }
+
+        _tickHost = host;
+        host.StartCoroutine(routine);
     }
 
     public static IEnumerator Finish(IEnumerator inner, Action done)
@@ -72,11 +85,8 @@ internal static class ManifestLoadPatches
 {
     public static void Apply(Harmony harmony)
     {
-        if (File.Exists(OptimizeOffFlag()))
-        {
-            FileLog.Info("optimize patches off");
-        }
-        else
+        var optimize = !File.Exists(OptimizeOffFlag());
+        if (optimize)
         {
             FileLog.Info("optimize patches on");
             TryPatch(harmony, "RemoteAssetBundleSource.GetAvailableAssetBundles", FindGetAvailableAssetBundles(), typeof(ParallelBuckets), nameof(ParallelBuckets.Prefix));
@@ -84,9 +94,18 @@ internal static class ManifestLoadPatches
             TryPatch(harmony, "AssetBundleRestWorker.CreateWebRequest", FindCreateWebRequest(), typeof(HistoricalManifestCache), nameof(HistoricalManifestCache.Prefix));
             LocalizationGzip.Apply(harmony);
         }
+        else
+        {
+            FileLog.Info("optimize patches off");
+        }
 
         StartupStatusText.Apply(harmony);
         SetupTimingLog.Apply(harmony);
+        NetworkSetup.ApplyTimings(harmony);
+        if (optimize)
+        {
+            NetworkSetup.ApplyOverlap(harmony);
+        }
     }
 
     private static string OptimizeOffFlag()
