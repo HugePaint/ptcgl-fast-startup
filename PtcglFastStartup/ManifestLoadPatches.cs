@@ -82,9 +82,11 @@ internal static class ManifestLoadPatches
             TryPatch(harmony, "RemoteAssetBundleSource.GetAvailableAssetBundles", FindGetAvailableAssetBundles(), typeof(ParallelBuckets), nameof(ParallelBuckets.Prefix));
             TryPatch(harmony, "AssetBundleManager.InitializeAvailableBundles", FindInitializeAvailableBundles(), typeof(ParallelSources), nameof(ParallelSources.Prefix));
             TryPatch(harmony, "AssetBundleRestWorker.CreateWebRequest", FindCreateWebRequest(), typeof(HistoricalManifestCache), nameof(HistoricalManifestCache.Prefix));
+            LocalizationGzip.Apply(harmony);
         }
 
         StartupStatusText.Apply(harmony);
+        SetupTimingLog.Apply(harmony);
     }
 
     private static string OptimizeOffFlag()
