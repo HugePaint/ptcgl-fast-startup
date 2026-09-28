@@ -6,7 +6,7 @@
 
 加载行保留游戏原文，并列出仍在 `Initialize` 中的 manager。`FastStartup.log` 写在可执行文件旁边。
 
-在客户端 `1.42.2.1247115`（Unity `6000.3.5`）上验证过。
+版本号 `1.0.0` 写在 `Directory.Build.props`。两个程序集都使用它，启动时会记入 `FastStartup.log`。在客户端 `1.42.2.1247115`（Unity `6000.3.5`）上验证过。
 
 ## 优化了哪些部分
 
@@ -24,7 +24,15 @@
 .\install.ps1
 ```
 
-脚本从 BepInEx `6.0.0-be.788` 包下载 Unity Doorstop，以 Release 编译两个项目，并把 `winhttp.dll`、`doorstop_config.ini` 和 `FastStartup\` 复制到 `C:\Users\yangyuhan` 下第一个匹配 `The Pok*\Pok*` 的目录。复制前会结束正在运行的游戏进程。两个项目都引用该下载中的 `0Harmony.dll`，因此通过这个脚本编译。
+脚本会先生成 `dist\ptcgl-fast-startup-<version>.zip`，再把这份内容复制到 `C:\Users\yangyuhan` 下第一个匹配 `The Pok*\Pok*` 的目录。复制前会结束正在运行的游戏进程。两个项目都引用 Doorstop 下载包里的 `0Harmony.dll`，因此通过这个脚本编译。
+
+## 发布包
+
+```powershell
+.\pack.ps1
+```
+
+脚本写出 `dist\ptcgl-fast-startup-<version>.zip`。把它解压到游戏可执行文件所在的目录，`winhttp.dll`、`doorstop_config.ini`、`.doorstop_version` 和 `FastStartup\` 会落在可执行文件旁边。压缩包里已经带上 Doorstop 和 Harmony 依赖，不需要本机安装 .NET SDK 就能启动游戏。
 
 ## 关闭优化
 

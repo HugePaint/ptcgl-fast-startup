@@ -85,6 +85,7 @@ internal static class ManifestLoadPatches
 {
     public static void Apply(Harmony harmony)
     {
+        FileLog.Info("version " + ProductVersion());
         var optimize = !File.Exists(OptimizeOffFlag());
         if (optimize)
         {
@@ -106,6 +107,14 @@ internal static class ManifestLoadPatches
         {
             NetworkSetup.ApplyOverlap(harmony);
         }
+    }
+
+    private static string ProductVersion()
+    {
+        var attr = (AssemblyInformationalVersionAttribute)Attribute.GetCustomAttribute(
+            typeof(ManifestLoadPatches).Assembly,
+            typeof(AssemblyInformationalVersionAttribute));
+        return attr == null ? "unknown" : attr.InformationalVersion;
     }
 
     private static string OptimizeOffFlag()

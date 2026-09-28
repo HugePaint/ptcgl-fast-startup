@@ -14,7 +14,7 @@ public static class Entrypoint
     {
         try
         {
-            Log("doorstop start");
+            Log("doorstop start " + ProductVersion());
             AppDomain.CurrentDomain.AssemblyLoad += (_, args) =>
             {
                 // GetName() walks the assembly codebase. Unity's Mono throws on the
@@ -89,6 +89,14 @@ public static class Entrypoint
             Interlocked.Exchange(ref _applied, 0);
             Log("apply failed: " + ex);
         }
+    }
+
+    private static string ProductVersion()
+    {
+        var attr = (AssemblyInformationalVersionAttribute)Attribute.GetCustomAttribute(
+            Assembly.GetExecutingAssembly(),
+            typeof(AssemblyInformationalVersionAttribute));
+        return attr == null ? "unknown" : attr.InformationalVersion;
     }
 
     private static void Log(string message)

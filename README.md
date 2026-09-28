@@ -6,7 +6,7 @@ Harmony patches for the Windows Pokémon TCG Live client. Unity Doorstop loads `
 
 The loading line keeps the game's text and lists managers still inside `Initialize`. `FastStartup.log` is written next to the executable.
 
-Tested on client `1.42.2.1247115` (Unity `6000.3.5`).
+Version `1.0.0` lives in `Directory.Build.props`. Both assemblies use it, and `FastStartup.log` records it at startup. Tested on client `1.42.2.1247115` (Unity `6000.3.5`).
 
 ## Optimizations
 
@@ -24,7 +24,15 @@ Windows, the game, and the .NET SDK.
 .\install.ps1
 ```
 
-The script downloads Unity Doorstop from the BepInEx `6.0.0-be.788` package, builds both projects in Release, and copies `winhttp.dll`, `doorstop_config.ini`, and `FastStartup\` into the first `The Pok*\Pok*` directory under `C:\Users\yangyuhan`. It stops a running game process before copying. Both projects reference `0Harmony.dll` from that download, so build through this script.
+The script builds `dist\ptcgl-fast-startup-<version>.zip`, then copies that layout into the first `The Pok*\Pok*` directory under `C:\Users\yangyuhan`. It stops a running game process before copying. Both projects reference `0Harmony.dll` from the Doorstop download, so build through this script.
+
+## Release
+
+```powershell
+.\pack.ps1
+```
+
+This writes `dist\ptcgl-fast-startup-<version>.zip`. Unzip it into the folder that contains the game executable. `winhttp.dll`, `doorstop_config.ini`, `.doorstop_version`, and `FastStartup\` land next to that executable. The zip already contains Doorstop and the Harmony dependencies, so the game can launch without the .NET SDK.
 
 ## Optimize off
 
