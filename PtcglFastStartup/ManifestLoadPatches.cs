@@ -86,6 +86,7 @@ internal static class ManifestLoadPatches
     public static void Apply(Harmony harmony)
     {
         FileLog.Info("version " + ProductVersion());
+        FileLog.Info("client " + Application.version);
         var optimize = !File.Exists(OptimizeOffFlag());
         if (optimize)
         {

@@ -68,8 +68,9 @@ internal static class StartupStatusText
 
     private static class ScreenHooks
     {
-        public static void SetTotal(object __instance)
+        public static void SetTotal(object __instance, int totalSteps)
         {
+            FileLog.Info("load total " + totalSteps);
             Bind(__instance);
             Paint();
         }
@@ -360,6 +361,8 @@ internal static class StartupStatusText
             case "FTUEManager": return "tutorial checkpoint and bundle";
             case "FXManager": return "effect pools";
             case "GameDriverManager": return "game driver";
+            case "GlobalInputManager": return "input devices";
+            case "InputGlyphManager": return "input glyphs";
             case "GameSettingsEndpoint": return "remote game settings";
             case "InboxEvents": return "inbox events";
             case "InboxManager": return "messages and invites";
