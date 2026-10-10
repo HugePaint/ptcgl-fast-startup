@@ -2,7 +2,7 @@
 
 [English](README.md)
 
-面向 Windows 版 Pokémon TCG Live 的 Harmony 补丁。Unity Doorstop 加载 `FastStartup\FastStartupBootstrap.dll`，在 `TPCI.RainierClient` 载入后应用补丁。
+面向 Windows 版 Pokémon TCG Live 的 Harmony 补丁。发布包里的 `doorstop_config.ini` 加载 `FastStartup\FastStartupBootstrap.dll`，在 `TPCI.RainierClient` 载入后应用补丁。游戏目录里已经有 `FastStartup\PtcglCodeRedeem.Doorstop.dll` 时，`install.ps1` 会把 Doorstop 指到这个 DLL，让 FastStartup 和兑换码 mod 一起加载。
 
 加载行保留游戏原文，并列出仍在 `Initialize` 中的 manager。`FastStartup.log` 写在可执行文件旁边。
 
@@ -24,7 +24,7 @@
 .\install.ps1
 ```
 
-脚本会先生成 `dist\ptcgl-fast-startup-<version>.zip`，再把这份内容复制到 `C:\Users\yangyuhan` 下第一个匹配 `The Pok*\Pok*` 的目录。复制前会结束正在运行的游戏进程。两个项目都引用 Doorstop 下载包里的 `0Harmony.dll`，因此通过这个脚本编译。
+脚本会先生成 `dist\ptcgl-fast-startup-<version>.zip`，再把这份内容复制到它解析出的游戏目录。复制前会结束正在运行的游戏进程。两个项目都引用 Doorstop 下载包里的 `0Harmony.dll`，因此通过这个脚本编译。
 
 ## 发布包
 

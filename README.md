@@ -2,7 +2,7 @@
 
 [中文](README.zh-CN.md)
 
-Harmony patches for the Windows Pokémon TCG Live client. Unity Doorstop loads `FastStartup\FastStartupBootstrap.dll`, which applies the patches once `TPCI.RainierClient` loads.
+Harmony patches for the Windows Pokémon TCG Live client. The release zip's `doorstop_config.ini` loads `FastStartup\FastStartupBootstrap.dll`, which applies the patches once `TPCI.RainierClient` loads. `install.ps1` points Doorstop at `FastStartup\PtcglCodeRedeem.Doorstop.dll` when that DLL is already in the game folder, so FastStartup and the code-redeem mod both load.
 
 The loading line keeps the game's text and lists managers still inside `Initialize`. `FastStartup.log` is written next to the executable.
 
@@ -24,7 +24,7 @@ Windows, the game, and the .NET SDK.
 .\install.ps1
 ```
 
-The script builds `dist\ptcgl-fast-startup-<version>.zip`, then copies that layout into the first `The Pok*\Pok*` directory under `C:\Users\yangyuhan`. It stops a running game process before copying. Both projects reference `0Harmony.dll` from the Doorstop download, so build through this script.
+The script builds `dist\ptcgl-fast-startup-<version>.zip`, then copies that layout into the game directory it resolves. It stops a running game process before copying. Both projects reference `0Harmony.dll` from the Doorstop download, so build through this script.
 
 ## Release
 
